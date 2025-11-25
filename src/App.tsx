@@ -9,6 +9,7 @@ import RoleSelection from "./pages/RoleSelection";
 import VendorOnboarding from "./pages/VendorOnboarding";
 import TrainerOnboarding from "./pages/TrainerOnboarding";
 import TrainerDashboard from "./pages/TrainerDashboard";
+import VendorDashboard from "./pages/VendorDashboard";
 import ApplyJob from "./pages/ApplyJob";
 import NotFound from "./pages/NotFound";
 
@@ -27,6 +28,7 @@ const App = () => (
           <Route path="/vendor-onboarding" element={<VendorOnboarding />} />
           <Route path="/trainer-onboarding" element={<TrainerOnboarding />} />
           <Route path="/trainer-dashboard" element={<TrainerDashboard />} />
+          <Route path="/vendor-dashboard" element={<VendorDashboard />} />
           <Route path="/apply-job" element={<ApplyJob />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

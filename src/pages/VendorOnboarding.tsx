@@ -17,7 +17,7 @@ const VendorOnboarding = () => {
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
-      navigate("/");
+      navigate("/vendor-dashboard");
     }, 1500);
   };
 
