@@ -26,6 +26,7 @@ const ApplyJob = () => {
   const { toast } = useToast();
   const [searchQuery, setSearchQuery] = useState("");
   const [filterLevel, setFilterLevel] = useState("all");
+  const [filterType, setFilterType] = useState<"all" | "saved" | "applied">("all");
   const [appliedJobs, setAppliedJobs] = useState<number[]>([]);
   const [savedJobs, setSavedJobs] = useState<number[]>([]);
   const [selectedJob, setSelectedJob] = useState<typeof availableJobs[0] | null>(null);
@@ -133,7 +134,11 @@ const ApplyJob = () => {
                          job.vendor.toLowerCase().includes(searchQuery.toLowerCase()) ||
                          job.skills.some(skill => skill.toLowerCase().includes(searchQuery.toLowerCase()));
     const matchesLevel = filterLevel === "all" || job.level === filterLevel;
-    return matchesSearch && matchesLevel;
+    const matchesType = 
+      filterType === "all" ? true :
+      filterType === "saved" ? savedJobs.includes(job.id) :
+      filterType === "applied" ? appliedJobs.includes(job.id) : true;
+    return matchesSearch && matchesLevel && matchesType;
   });
 
   return (
@@ -175,6 +180,17 @@ const ApplyJob = () => {
                 />
               </div>
               <div className="flex gap-2">
+                <Select value={filterType} onValueChange={(value: "all" | "saved" | "applied") => setFilterType(value)}>
+                  <SelectTrigger className="w-[180px]">
+                    <Filter className="w-4 h-4 mr-2" />
+                    <SelectValue placeholder="Filter" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All Jobs</SelectItem>
+                    <SelectItem value="saved">Saved Jobs</SelectItem>
+                    <SelectItem value="applied">Applied Jobs</SelectItem>
+                  </SelectContent>
+                </Select>
                 <Select value={filterLevel} onValueChange={setFilterLevel}>
                   <SelectTrigger className="w-[180px]">
                     <Filter className="w-4 h-4 mr-2" />
