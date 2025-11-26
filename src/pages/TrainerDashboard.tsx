@@ -10,8 +10,13 @@ import {
   Award,
   TrendingUp,
   BookOpen,
-  LogOut
+  LogOut,
+  User,
+  Settings,
+  Bell
 } from "lucide-react";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 const TrainerDashboard = () => {
   const navigate = useNavigate();
@@ -45,15 +50,43 @@ const TrainerDashboard = () => {
       <header className="bg-background border-b sticky top-0 z-10">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <h1 className="text-2xl font-bold">MatchaTrainer</h1>
-          <div className="flex gap-4">
+          <div className="flex gap-4 items-center">
             <Button variant="outline" onClick={() => navigate("/apply-job")}>
               <BookOpen className="w-4 h-4 mr-2" />
               Browse Jobs
             </Button>
-            <Button variant="ghost" onClick={() => navigate("/")}>
-              <LogOut className="w-4 h-4 mr-2" />
-              Logout
-            </Button>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="icon" className="rounded-full">
+                  <Avatar>
+                    <AvatarFallback className="bg-primary text-primary-foreground">
+                      <User className="h-4 w-4" />
+                    </AvatarFallback>
+                  </Avatar>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-56">
+                <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={() => navigate("/trainer-profile")}>
+                  <User className="mr-2 h-4 w-4" />
+                  <span>Profile</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => navigate("/settings")}>
+                  <Settings className="mr-2 h-4 w-4" />
+                  <span>Settings</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => navigate("/notifications")}>
+                  <Bell className="mr-2 h-4 w-4" />
+                  <span>Notifications</span>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={() => navigate("/")}>
+                  <LogOut className="mr-2 h-4 w-4" />
+                  <span>Logout</span>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </div>
       </header>
